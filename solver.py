@@ -15,7 +15,18 @@ data = np.array(
 ]
 )
 
-print(data) 
+#print(data)
 
+maybe = np.zeros((9,9))
+var = {}
 
+vert_cond = set(data[0, :])
+print("vert_cond: ", vert_cond)
+gor_cond = set(data[:, 0])
+print("gor cond: ",gor_cond)
+cond = set(data[0:2,0:2].flat)
+print ("cond: ", cond)
+
+var = {1,2,3,4,5,6,7,8,9}.difference(vert_cond, gor_cond, cond)
+print("Возможные варианты: ", var)
 
