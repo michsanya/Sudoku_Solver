@@ -1,32 +1,42 @@
 import numpy as np
 
-
 data = np.array(
-[
-[0,0,0,0,6,0,7,0,0],
-[0,5,9,0,0,0,0,0,0],
-[0,1,0,2,0,0,0,0,0],
-[0,0,0,1,0,0,0,0,0],
-[6,0,0,5,0,0,0,0,0],
-[3,0,0,0,0,0,4,6,0],
-[0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,9,1],
-[8,0,0,7,4,0,0,0,0]
-]
+    [
+        [0, 0, 0, 0, 6, 0, 7, 0, 0],
+        [0, 5, 9, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 2, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [6, 0, 0, 5, 0, 0, 0, 0, 0],
+        [3, 0, 0, 0, 0, 0, 4, 6, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 9, 1],
+        [8, 0, 0, 7, 4, 0, 0, 0, 0]
+    ]
 )
 
-#print(data)
+maybe = np.empty((9, 9), dtype=np.object)
+rang = np.empty((9,9))
+vert_cond = [{},{},{},{},{},{},{},{},{}]
+gor_cond = [{},{},{},{},{},{},{},{},{}]
 
-maybe = np.zeros((9,9))
-var = {}
+for i in range (9):
+    # Определение доступных вариантов по вертикальным столбцам
+    vert_cond[i] = set(data[:, i].flat)
+    # Определение доступных вариантов по горизонтальным строкам
+    gor_cond[i] = set(data[i, :].flat)
 
-vert_cond = set(data[0, :])
-print("vert_cond: ", vert_cond)
-gor_cond = set(data[:, 0])
-print("gor cond: ",gor_cond)
-cond = set(data[0:2,0:2].flat)
-print ("cond: ", cond)
+for i in range(9):
+    for j in range(9):
+        ii = 3 * (i//3)
+        jj = 3 * (j//3)
+        subdata = data[ii:(ii+3), jj:(jj+3)]
+        cond = set(subdata.flat)
+        maybe[j, i] = {1, 2, 3, 4, 5, 6, 7, 8, 9}.difference(vert_cond[i], gor_cond[j], cond)
+        #if data[i, j] > 0
+        #    maybe[j, i] = data[j, i]
 
-var = {1,2,3,4,5,6,7,8,9}.difference(vert_cond, gor_cond, cond)
-print("Возможные варианты: ", var)
+        rang[j, i] = len(maybe[j, i])
+
+print(maybe)
+print (rang)
 
