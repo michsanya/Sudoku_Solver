@@ -15,11 +15,11 @@ data = np.array(
 )
 
 maybe = np.empty((9, 9), dtype=np.object)
-rang = np.empty((9,9))
-vert_cond = [{},{},{},{},{},{},{},{},{}]
-gor_cond = [{},{},{},{},{},{},{},{},{}]
+rang = np.empty((9, 9))
+vert_cond = [{}, {}, {}, {}, {}, {}, {}, {}, {}]
+gor_cond = [{}, {}, {}, {}, {}, {}, {}, {}, {}]
 
-for i in range (9):
+for i in range(9):
     # Определение доступных вариантов по вертикальным столбцам
     vert_cond[i] = set(data[:, i].flat)
     # Определение доступных вариантов по горизонтальным строкам
@@ -27,16 +27,15 @@ for i in range (9):
 
 for i in range(9):
     for j in range(9):
-        ii = 3 * (i//3)
-        jj = 3 * (j//3)
-        subdata = data[ii:(ii+3), jj:(jj+3)]
+        ii = 3 * (i // 3)
+        jj = 3 * (j // 3)
+        subdata = data[ii:(ii + 3), jj:(jj + 3)]
         cond = set(subdata.flat)
         maybe[j, i] = {1, 2, 3, 4, 5, 6, 7, 8, 9}.difference(vert_cond[i], gor_cond[j], cond)
-        #if data[i, j] > 0
+        # if data[i, j] > 0
         #    maybe[j, i] = data[j, i]
 
         rang[j, i] = len(maybe[j, i])
 
 print(maybe)
-print (rang)
-
+print(rang)
