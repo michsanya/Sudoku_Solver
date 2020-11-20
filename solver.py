@@ -31,11 +31,12 @@ for i in range(9):
         jj = 3 * (j // 3)
         subdata = data[ii:(ii + 3), jj:(jj + 3)]
         cond = set(subdata.flat)
-        maybe[j, i] = {1, 2, 3, 4, 5, 6, 7, 8, 9}.difference(vert_cond[i], gor_cond[j], cond)
-        # if data[i, j] > 0
-        #    maybe[j, i] = data[j, i]
+        if data[i, j] == 0:
+            maybe[i, j] = {1, 2, 3, 4, 5, 6, 7, 8, 9}.difference(vert_cond[i], gor_cond[j], cond)
+        else:
+            maybe[i, j] = {}
 
-        rang[j, i] = len(maybe[j, i])
+        rang[i, j] = int(len(maybe[i, j]))
 
 print(maybe)
 print(rang)
